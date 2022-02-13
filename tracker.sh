@@ -7,7 +7,7 @@ file=$1;
 #  rssi=`iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}'`;
 #  echo $rssi >> $file;
 #done
-for ((i=1;i<=50;i++)); do
+for ((i=1;i<=400;i++)); do
   echo $(ssh root@10.0.0.1 iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}') >> $file
   sleep 2s;
 done
