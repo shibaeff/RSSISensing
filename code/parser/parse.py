@@ -1,5 +1,5 @@
-# from typing import List
 import pandas as pd
+
 
 class Parser:
     @classmethod
@@ -11,6 +11,8 @@ class Parser:
     def read(cls, file: str) -> pd.DataFrame:
         with open(file, "r") as f:
             values = [Parser.parse_line(l) for l in f.readlines()]
-            # values = list(map(Parser.parse_line, f.readlines()))
-            return pd.DataFrame(values)
+            res = pd.DataFrame(values).rename(columns={0: "time", 1: "rssi"})
+            res["rssi"] = res["rssi"].astype("float64")
+            return res
+
 
