@@ -17,8 +17,11 @@ file=$1;
 #  echo $rssi >> $file;
 #done
 while true; do
-  ts=$(python3 -c 'import datetime; print(datetime.datetime.now().strftime("%s.%f"))')
-  echo $ts, $(ssh root@10.0.0.1 iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}') >> $file
-  echo $ts, $(ssh root@10.0.0.1 -q iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}')
-  sleep 2s;
+  # ts=$(python3 -c 'import datetime; print(datetime.datetime.now().strftime("%s.%f"))')
+  # echo $ts, $(ssh root@10.0.0.1 iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}') >> $file
+  # echo $ts, $(ssh root@10.0.0.1 -q iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}')
+
+  echo $(ssh root@10.0.0.1 iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}') >> $file
+  echo $(ssh root@10.0.0.1 -q iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}')
+  sleep 1s;
 done
