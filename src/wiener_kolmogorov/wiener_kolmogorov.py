@@ -8,12 +8,12 @@ class WienerKolmogorov:
         self._mean = None
         self._var = None
 
-    def fit(self, arr):
+    def fit(self, arr, k):
         arr = np.array(arr)
         sz = np.size(arr)
         self._mean = correlate(arr, np.ones(sz), 'same') / np.prod(sz, axis=0)
         self._var = (correlate(arr ** 2, np.ones(sz), 'same') / np.prod(sz, axis=0) - self._mean ** 2)
-        self._noise = 0.55 * np.mean(np.ravel(self._var), axis=0)
+        self._noise = k * np.mean(np.ravel(self._var), axis=0)
         # print(self._mean)
 
     def transform(self, arr) -> np.array:

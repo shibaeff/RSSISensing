@@ -10,6 +10,14 @@ from keras.regularizers import l2
 import numpy as np
 from keras import optimizers
 
+def gru(X_train, y_train, X_test, y_test):
+    model_gru = Sequential()
+    model_gru.add(GRU(75, return_sequences=True, input_shape=(X_train.shape[1], X_train.shape[2])))
+    model_gru.add(GRU(units=30, return_sequences=True))
+    model_gru.add(GRU(units=30))
+    model_gru.add(Dense(units=1))
+    hist = model_gru.fit(X_train, y_train, epochs=10, batch_size=64)
+    return model_gru.predict(X_test, y_train)
 
 class GRUModel(object):
     def __init__(self, inputDim, hiddenNum, outputDim, lr):
@@ -23,8 +31,12 @@ class GRUModel(object):
         self.model = Sequential()
         self.model.add(GRU(self.hiddenNum, input_shape=(None, self.inputDim), return_sequences=True))
         self.model.add(Dropout(0.2))
-        self.model.add(GRU(self.hiddenNum, input_shape=(None, self.inputDim)))
-        self.model.add(Dropout(0.2))
+        # self.model.add(GRU(self.hiddenNum, input_shape=(None, self.inputDim)))
+        # self.model.add(Dropout(0.2))
+        # self.model.add(GRU(self.hiddenNum, input_shape=(None, self.inputDim)))
+        # self.model.add(Dropout(0.2))
+        # self.model.add(GRU(self.hiddenNum, input_shape=(None, self.inputDim)))
+        # self.model.add(Dropout(0.2))
         self.model.add(Dense(self.outputDim))
         self.model.add(Activation("tanh"))
         self.model.compile(loss='mean_squared_error', optimizer=self.opt)

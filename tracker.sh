@@ -10,6 +10,7 @@ function ctrl_c() {
 
 ssh root@10.0.0.1
 file=$1;
+#touch $file
 ## shellcheck disable=SC2034
 #while ( (i=7;i<=12;i++) ); do
 #  sleep 3s;
@@ -20,8 +21,8 @@ while true; do
   # ts=$(python3 -c 'import datetime; print(datetime.datetime.now().strftime("%s.%f"))')
   # echo $ts, $(ssh root@10.0.0.1 iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}') >> $file
   # echo $ts, $(ssh root@10.0.0.1 -q iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}')
-
-  echo $(ssh root@10.0.0.1 iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2},') >> $file
-  echo $(ssh root@10.0.0.1 -q iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2},')
+  # echo 1 >> $file
+  echo $(ssh root@10.0.0.1 iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}') >> $file
+  # echo "$(ssh root@10.0.0.1 -q iw dev wlan0 station dump | grep "signal:" | tail -n 1 | awk '{print $2}')"
   sleep 1s;
 done
